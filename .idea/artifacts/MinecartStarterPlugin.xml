@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="MinecartStarterPlugin">
+    <output-path>$PROJECT_DIR$/out/artifacts/MinecartStarterPlugin</output-path>
+    <root id="archive" name="MinecartStarterPlugin.jar">
+      <element id="module-output" name="MinecartStarterPlugin" />
+    </root>
+  </artifact>
+</component>
