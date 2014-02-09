@@ -20,7 +20,6 @@ public class MinecartStarter extends JavaPlugin implements Listener {
 
   private ArrayList<Entity> mcarts;
 
-
   @Override
   public void onEnable() {
     getServer().getPluginManager().registerEvents(this, this);
@@ -32,7 +31,7 @@ public class MinecartStarter extends JavaPlugin implements Listener {
     if (label.equalsIgnoreCase("minecart")) {
       if (sender instanceof Player) {
         if (sender.hasPermission("minecartstarter.can") || sender.isOp()) {
-          Material MaterialUnderSender = ((Player) sender).getWorld().getBlockAt(((Player)sender).getLocation()).getType();
+          Material MaterialUnderSender = ((Player) sender).getWorld().getBlockAt(((Player) sender).getLocation()).getType();
           switch (MaterialUnderSender) {
             case RAILS:
             case ACTIVATOR_RAIL:
@@ -40,11 +39,6 @@ public class MinecartStarter extends JavaPlugin implements Listener {
             case POWERED_RAIL:
 
               Minecart newMinecart = ((Player) sender).getWorld().spawn(((Player) sender).getLocation(), Minecart.class);
-
-              newMinecart.setPassenger((Player) sender);
-
-              mcarts.add(newMinecart);
-
               Vector newMinecartVelocity = newMinecart.getVelocity();
 
               double playerRotation = (((Player) sender).getLocation().getYaw() - 90.0F) % 360.0F;
@@ -67,13 +61,15 @@ public class MinecartStarter extends JavaPlugin implements Listener {
                   newMinecartVelocity.setZ(8);
                   break;
               }
-              newMinecart.setVelocity(newMinecartVelocity);
 
+              newMinecart.setPassenger((Player) sender);
+              newMinecart.setVelocity(newMinecartVelocity);
+              mcarts.add(newMinecart);
               break;
             default:
               sender.sendMessage("| MinecartStarter | You're not standing on a track!");
               break;
-            }
+          }
         } else
           sender.sendMessage("| MinecartStarter | You don't have permission!");
       } else
@@ -106,11 +102,6 @@ public class MinecartStarter extends JavaPlugin implements Listener {
     }
     return CardinalDirection.Unknown;
   }
-
-
-
-
-
 
   @EventHandler(priority = EventPriority.NORMAL)
   public void onPlayerTeleport(PlayerTeleportEvent e) {
